@@ -18,5 +18,5 @@ require('mongoose').connect(process.env.MONGODB_URI || process.env.LOCAL_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-  .then(() => app.listen(process.env.PORT || 3001))
+  .then(() => app.listen(process.env.PORT || 3001, () => console.log('The server is running')))
   .catch(err => console.error(err))
