@@ -52,29 +52,30 @@ const Saved = () => {
   return (
     <div>
       {
-        bookState.items.map(item => (
-          <Card className={classes.root} key={item.id}>
+        bookState.books.map(book => (
+          <Card className={classes.root} key={book.id}>
             <CardHeader
-              title={item.volumeInfo.title}
-              subheader={item.volumeInfo.authors.length ? `Written by ${item.volumeInfo.authors}` : 'Author unknown'}
+              title={book.volumeInfo.title}
+              subheader={book.volumeInfo.authors.length ? `Written by ${book.volumeInfo.authors}` : 'Author unknown'}
             />
             <CardMedia
               className={classes.media}
-              image={item.volumeInfo.imageLinks.length ? `${item.volumeInfo.imageLinks}` : 'Image unavailable'}
-              title={item.volumeInfo.title}
+              image={book.volumeInfo.imageLinks.thumbnail.length ? `${book.volumeInfo.imageLinks.thumbnail}` : 'Image unavailable'}
+              title={book.volumeInfo.title}
             />
             <CardActions>
               <Button
                 size='small'
                 color='primary'
-                href={item.volumeInfo.infoLink}
+                href={book.volumeInfo.infoLink}
+                target='_blank'
               >
                 View
               </Button>
               <Button
                 size='small'
                 color='secondary'
-                onClick={() => bookState.handleDeleteBook(item)}
+                onClick={() => bookState.handleDeleteBook(book)}
               >
                 Delete
               </Button>

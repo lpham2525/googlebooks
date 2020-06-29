@@ -10,11 +10,11 @@ import axios from 'axios'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 345
   },
   media: {
-    height: 140,
-  },
+    height: 140
+  }
 })
 
 const Search = () => {
@@ -31,7 +31,7 @@ const Search = () => {
 
   bookState.handleSearchBook = event => {
     event.preventDefault()
-    axios.get(`/api/giphy/${bookState.search}`)
+    axios.get(`/api/books/${bookState.search}`)
       .then(({ data }) => {
         console.log(data)
         setBookState({ ...bookState, books: data })
@@ -41,13 +41,15 @@ const Search = () => {
 
   bookState.handleSaveBook = book => {
     axios.post('/api/books', {
-      title: book.title,
-      source: book.images.original.url,
-      url: book.url,
-      author: book.username,
+      title: book.volumeInfo.title,
+      image: book.volumeInfo.imageLinks.thumbnail,
+      url: book.volumeInfo.infoLink,
+      authors: book.volumeInfo.authors,
       bookId: book.id
-    })
+    },
+    console.log('posting to saved page', book))
       .then(() => {
+        console.log('posting')
         const books = bookState.books
         const booksFiltered = books.filter(tome => tome.id !== book.id)
         setBookState({ ...bookState, books: booksFiltered })
@@ -59,13 +61,14 @@ const Search = () => {
     <>
       <form onSubmit={bookState.handleSearchBook}>
         <TextField
-          label="Search Google Books"
-          name="search"
+          label='Search Google Books'
+          name='search'
           value={bookState.search}
-          onChange={bookState.handleInputChange} />
+          onChange={bookState.handleInputChange}
+        />
         <Button
-          variant="outlined"
-          color="primary"
+          variant='outlined'
+          color='primary'
           onClick={bookState.handleSearchBook}
         >
           Search
@@ -73,26 +76,26 @@ const Search = () => {
       </form>
       <div>
         {
-          bookState.books.map(item => (
-            <Card className={classes.root} key={item.id}>
+          bookState.books.map(book => (
+            <Card className={classes.root} key={book.id}>
               <CardHeader
-                title={item.volumeInfo.title}
-                subheader={item.volumeInfo.authors.length ? `Written by ${item.volumeInfo.authors}` : 'Author unknown'}
+                title={book.volumeInfo.title}
+                subheader={book.volumeInfo.authors.length ? `Written by ${book.volumeInfo.authors}` : 'Author unknown'}
               />
               <CardMedia
                 className={classes.media}
-                image={item.volumeInfo.imageLinks.length ? `${item.volumeInfo.imageLinks}` : 'Image unavailable'}
-                title={item.volumeInfo.title}
+                image={book.volumeInfo.imageLinks.thumbnail.length ? `${book.volumeInfo.imageLinks.thumbnail}` : 'Image unavailable'}
+                title={book.volumeInfo.title}
               />
               <CardActions>
                 <Button
-                  size="small"
-                  color="primary"
-                  onClick={() => bookState.handleSaveBook(item)}
+                  size='small'
+                  color='primary'
+                  onClick={() => bookState.handleSaveBook(book)}
                 >
                   Save
                 </Button>
-                <Button size="small" color="primary" href={item.volumeInfo.infoLink}>
+                <Button size='small' color='primary' href={book.volumeInfo.infoLink} target='_blank'>
                   View
                 </Button>
               </CardActions>
