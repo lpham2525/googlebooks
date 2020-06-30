@@ -75,7 +75,7 @@ const Search = () => {
   }
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" className='container'>
       <FormControl fullWidth className={classes.margin} variant="outlined" onSubmit={bookState.handleSearchBook}>
         <h1>Search Google Books</h1>
         <OutlinedInput
