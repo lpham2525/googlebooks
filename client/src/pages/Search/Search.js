@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardMedia from '@material-ui/core/CardMedia'
+import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import FormControl from '@material-ui/core/FormControl'
-import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography'
 
 import axios from 'axios'
 
@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flexDirection: 'row'
   },
   media: {
     height: 900,
@@ -73,28 +74,31 @@ const Search = () => {
   }
 
   return (
-    <>
-        <FormControl fullWidth className={classes.margin} variant="outlined" onSubmit={bookState.handleSearchBook}>
-          <h1>Search Google Books</h1>
-          <OutlinedInput
-            id="outlined"
-            label='search'
-            name='search'
-            placeholder="Enter title here"
-            value={bookState.search}
-            onChange={bookState.handleInputChange}
-          />
-        </FormControl>
-        <Button
-          variant='outlined'
-          color='primary'
-          onClick={bookState.handleSearchBook}
-        >
+    <Container maxWidth="lg">
+      <FormControl fullWidth className={classes.margin} variant="outlined" onSubmit={bookState.handleSearchBook}>
+        <h1>Search Google Books</h1>
+        <OutlinedInput
+          id="outlined"
+          label='search'
+          name='search'
+          placeholder="Enter title here"
+          value={bookState.search}
+          onChange={bookState.handleInputChange}
+        />
+      </FormControl>
+      <Button
+        variant='outlined'
+        color='primary'
+        onClick={bookState.handleSearchBook}
+      >
           Search
-        </Button>
+      </Button>
+      <br />
+      <br />
       <div className={classes.root}>
         {
           bookState.books.map(book => (
+            <p key={book.id}>
             <Card className={classes.root} key={book.id}>
               <CardActionArea>
                 <CardMedia
@@ -129,10 +133,11 @@ const Search = () => {
                 </Button>
               </CardActions>
             </Card>
+            </p>
           ))
         }
       </div>
-    </>
+    </Container>
   )
 }
 
