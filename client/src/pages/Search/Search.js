@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row'
   },
   media: {
-    height: 900,
+    height: 400,
     width: 500
   },
   margin: {
