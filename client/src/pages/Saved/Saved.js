@@ -23,14 +23,6 @@ const Saved = () => {
     books: []
   })
 
-  bookState.handleViewBook = book => {
-    axios.get(`/api/books/${book._id}`)
-      .then(() => {
-
-      })
-      .catch(err => console.error(err))
-  }
-
   bookState.handleDeleteBook = book => {
     axios.delete(`/api/books/${book._id}`)
       .then(() => {
@@ -44,6 +36,7 @@ const Saved = () => {
   useEffect(() => {
     axios.get('/api/books')
       .then(({ data }) => {
+        console.log(data)
         setBookState({ ...bookState, books: data })
       })
       .catch(err => console.error(err))
