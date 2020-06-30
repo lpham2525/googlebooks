@@ -5,22 +5,32 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
-import CardHeader from '@material-ui/core/CardHeader'
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
+import OutlinedInput from '@material-ui/core/OutlinedInput'
+import FormControl from '@material-ui/core/FormControl'
 import Typography from '@material-ui/core/Typography';
 
 import axios from 'axios'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 500
+    maxWidth: 500,
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   media: {
     height: 900,
     width: 500
+  },
+  margin: {
+    margin: theme.spacing(1)
+  },
+  withoutLabel: {
+    marginTop: theme.spacing(3)
   }
 })
+)
 
 const Search = () => {
   const classes = useStyles()
@@ -64,13 +74,17 @@ const Search = () => {
 
   return (
     <>
-      <form onSubmit={bookState.handleSearchBook}>
-        <TextField
-          label='Search Google Books'
-          name='search'
-          value={bookState.search}
-          onChange={bookState.handleInputChange}
-        />
+        <FormControl fullWidth className={classes.margin} variant="outlined" onSubmit={bookState.handleSearchBook}>
+          <h1>Search Google Books</h1>
+          <OutlinedInput
+            id="outlined"
+            label='search'
+            name='search'
+            placeholder="Enter title here"
+            value={bookState.search}
+            onChange={bookState.handleInputChange}
+          />
+        </FormControl>
         <Button
           variant='outlined'
           color='primary'
@@ -78,8 +92,7 @@ const Search = () => {
         >
           Search
         </Button>
-      </form>
-      <div>
+      <div className={classes.root}>
         {
           bookState.books.map(book => (
             <Card className={classes.root} key={book.id}>
@@ -116,29 +129,6 @@ const Search = () => {
                 </Button>
               </CardActions>
             </Card>
-            // <Card className={classes.root} key={book.id}>
-            //   <CardHeader
-            //     title={book.volumeInfo.title}
-            //     subheader={book.volumeInfo.authors.length ? `Written by ${book.volumeInfo.authors}` : 'Author unknown'}
-            //   />
-            //   <CardMedia
-            //     className={classes.media}
-            //     image={book.volumeInfo.imageLinks.thumbnail.length ? `${book.volumeInfo.imageLinks.thumbnail}` : 'Image unavailable'}
-            //     title={book.volumeInfo.title}
-            //   />
-            //   <CardActions>
-            //     <Button
-            //       size='small'
-            //       color='primary'
-            //       onClick={() => bookState.handleSaveBook(book)}
-            //     >
-            //       Save
-            //     </Button>
-            //     <Button size='small' color='primary' href={book.volumeInfo.infoLink} target='_blank'>
-            //       View
-            //     </Button>
-            //   </CardActions>
-            // </Card>
           ))
         }
       </div>
