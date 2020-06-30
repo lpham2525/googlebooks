@@ -19,6 +19,7 @@ router.get('/books/:search', (req, res) => {
           })
           res.json(booksFiltered)
         })
+        .catch(err => console.error(err))
     })
     .catch(err => console.error(err))
 })

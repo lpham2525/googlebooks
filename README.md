@@ -34,6 +34,6 @@ The application uses a SPA (Single Page Application) layout that uses [`react-ro
 
 * `*` (get) - Loads a single HTML page in `client/build/index.html`. 
 
-* Check out the application to Heroku: 
+* Check out the application to Heroku: https://vast-ridge-81306.herokuapp.com/ 
 
 - - -

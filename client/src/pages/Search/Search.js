@@ -60,6 +60,7 @@ const Search = () => {
     axios.post('/api/books', {
       title: book.volumeInfo.title,
       image: book.volumeInfo.imageLinks.thumbnail,
+      description: book.volumeInfo.description,
       link: book.volumeInfo.infoLink,
       authors: book.volumeInfo.authors,
       bookId: book.id
