@@ -9,6 +9,7 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import FormControl from '@material-ui/core/FormControl'
+import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
 import axios from 'axios'
@@ -95,6 +96,12 @@ const Search = () => {
       </Button>
       <br />
       <br />
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
       <div className={classes.root}>
         {
           bookState.books.map(book => (
@@ -137,6 +144,7 @@ const Search = () => {
           ))
         }
       </div>
+      </Grid>
     </Container>
   )
 }
