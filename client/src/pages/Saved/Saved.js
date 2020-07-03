@@ -36,31 +36,31 @@ const Saved = () => {
   useEffect(() => {
     axios.get('/api/books')
       .then(({ data }) => {
-        console.log(data)
         setBookState({ ...bookState, books: data })
       })
       .catch(err => console.error(err))
-  }, [])
+  })
 
   return (
     <div>
+      {/* console.log(bookState.books) */}
       {
         bookState.books.map(book => (
           <Card className={classes.root} key={book.id}>
             <CardHeader
-              title={book.volumeInfo.title}
-              subheader={book.volumeInfo.authors.length ? `Written by ${book.volumeInfo.authors}` : 'Author unknown'}
+              title={book.title}
+              subheader={book.authors ? `Written by ${book.authors}` : 'Author unknown'}
             />
             <CardMedia
               className={classes.media}
-              image={book.volumeInfo.imageLinks.thumbnail.length ? `${book.volumeInfo.imageLinks.thumbnail}` : 'Image unavailable'}
-              title={book.volumeInfo.title}
+              image={book.image}
+              title={book.title}
             />
             <CardActions>
               <Button
                 size='small'
                 color='primary'
-                href={book.volumeInfo.infoLink}
+                href={book.link}
                 target='_blank'
               >
                 View

@@ -8,9 +8,16 @@ router.get('/books', (req, res) => {
 })
 
 router.post('/books', (req, res) => {
+  console.log('saving book:', req.body)
   Book.create(req.body)
     .then(book => res.json(book))
-    .catch(err => console.error(err))
+    .catch(err => {
+      console.error(err)
+      res.status(400).send({
+        status: 'error',
+        err
+      })
+    })
 })
 
 router.delete('/books/:id', (req, res) => {

@@ -67,15 +67,16 @@ const Search = () => {
     },
     console.log('posting to saved page', book))
       .then(() => {
-        console.log('check for second posting', book)
+        console.log('second posting')
         const books = bookState.books
         const booksFiltered = books.filter(tome => tome.id !== book.id)
         setBookState({ ...bookState, books: booksFiltered })
       })
-      .catch(err => console.error(err))
+      .catch(err => console.log(err))
   }
 
   return (
+    <>
     <Container maxWidth="lg" className='container'>
       <FormControl fullWidth className={classes.margin} variant="outlined" onSubmit={bookState.handleSearchBook}>
         <h1>Search Google Books</h1>
@@ -97,56 +98,62 @@ const Search = () => {
       </Button>
       <br />
       <br />
-      <Grid
+          {
+            bookState.books.map(book => {
+              console.log(book.volumeInfo)
+            
+              
+      return <Grid
         container
         direction="row"
         justify="center"
         alignItems="center"
+                key={book.id}
       >
-      <div className={classes.root}>
-        {
-          bookState.books.map(book => (
-            <p key={book.id}>
-            <Card className={classes.root} key={book.id}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={book.volumeInfo.imageLinks.thumbnail.length ? `${book.volumeInfo.imageLinks.thumbnail}` : 'Image unavailable'}
-                  title={book.volumeInfo.title}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {book.volumeInfo.title}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {book.volumeInfo.description}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size='small'
-                  color='primary'
-                  href={book.volumeInfo.infoLink}
-                  target='_blank'
-                >
-                  View
-                </Button>
-                <Button
-                  size='small'
-                  color='primary'
-                  onClick={() => bookState.handleSaveBook(book)}
-                >
-                  Save
-                </Button>
-              </CardActions>
-            </Card>
-            </p>
-          ))
-        }
-      </div>
+          <div className={classes.root}>
+                <Card className={classes.root}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image={book.volumeInfo.imageLinks ? `${book.volumeInfo.imageLinks.thumbnail}` : 'Image unavailable'}
+                      title={book.volumeInfo.title}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Title: {book.volumeInfo.title}
+                      </Typography>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Written by: {book.volumeInfo.authors}
+                    </Typography>
+                      <Typography variant="body2" color="textPrimary" component="p">
+                        {book.volumeInfo.description}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button
+                      size='small'
+                      color='primary'
+                      href={book.volumeInfo.infoLink}
+                      target='_blank'
+                    >
+                      View
+                    </Button>
+                    <Button
+                      size='small'
+                      color='primary'
+                      onClick={() => bookState.handleSaveBook(book)}
+                    >
+                      Save
+                    </Button>
+                  </CardActions>
+                </Card>
+        </div>
       </Grid>
+})
+          }
     </Container>
+    </>
   )
 }
 
